@@ -1,0 +1,130 @@
+<script>
+//window.addEventListener('load', (event) => {
+  // userName();
+  //});
+  
+function userName(){
+google.script.run
+.withSuccessHandler(showUsername)
+.getUserName();
+
+}
+function showUsername(user){
+document.getElementById('username-Label').innerHTML = user;
+}
+
+function config(){
+  google.script.run.showConfiguration();
+}
+function home(){
+  google.script.run.showHome();
+}
+function addApprover(){
+  var noOfApprovers = document.getElementById('form').rows.length - 6;
+  var tbody = document.getElementById('tbody');
+ 
+
+  var row = document.createElement('tr');
+  var col1 = document.createElement('td');
+  var col2 = document.createElement('td');
+
+  var div1 = document.createElement('div');
+          div1.setAttribute('class','block form-group');
+  var div2 = document.createElement('div');
+          div2.setAttribute('class','block form-group');
+
+  var id = 'manager_' + (noOfApprovers + 1);
+  var input = document.createElement('input');
+              input.setAttribute('type','text');
+              input.setAttribute('id',id);
+              input.setAttribute('placeholder','email address');
+              input.setAttribute('class','email-input');
+
+  if(noOfApprovers >= 9){
+    input.setAttribute('class','email-input-greater-than-nine');
+  }
+  var rowNo = document.createElement('span');
+  rowNo.innerText = noOfApprovers + 1 + ' ';
+  rowNo.setAttribute('class','row-no');
+  div1.appendChild(rowNo);
+  div1.appendChild(input);
+  id = 'select_' + (noOfApprovers + 1);
+  var select = document.createElement('SELECT');
+              select.setAttribute('id',id);
+              select.setAttribute('class','select');
+
+  var option1 = document.createElement('option');
+  var option2 = document.createElement('option');
+  var approve = document.createTextNode('Can Approve');
+  var notify = document.createTextNode('Notify Only');
+  
+
+  option1.appendChild(approve);
+  option2.appendChild(notify);
+
+  select.appendChild(option1);
+  select.appendChild(option2);
+
+  div2.appendChild(select);
+
+  col1.appendChild(div1);
+  col2.appendChild(div2);
+
+  row.appendChild(col1);
+  row.appendChild(col2);
+  tbody.appendChild(row);
+
+}
+
+
+function save(){
+  
+  var receipents = [];
+  var keyNameArray = [];
+  var noOfApprovers = document.getElementById('form').rows.length-6;
+  var notifyMe = document.getElementById('notify-me');
+  var notifyRespondent = document.getElementById('notify-respondent');
+  var notifyRespondentChanges = document.getElementById('notify-respondent-changes');
+  
+
+  var workflowLevel = document.getElementById('level');
+  for(var i = 1; i <= noOfApprovers; i++){
+    window['approver_' + i] = window['manager_' + i].value;
+    window['privilege_' + i] = window['select_' + i].value;
+  }
+  
+  for(var i = 1; i <= noOfApprovers; i++){
+    
+    receipents.push(window['approver_' + i]);
+    receipents.push(window['privilege_' + i]);
+    keyNameArray.push('approver_' + i);
+    keyNameArray.push('privilege_' + i);
+
+  }
+  
+  receipents.push(notifyMe.checked,notifyRespondent.checked,workflowLevel.checked,notifyRespondentChanges.checked,noOfApprovers);
+  google.script.run
+    .withSuccessHandler(saveSuccess)
+    .withFailureHandler(saveFailure)
+    .workflow(receipents,keyNameArray);
+  }
+  
+
+function saveSuccess(str){
+  alert("All Set ");
+  google.script.run
+    .withFailureHandler(saveFailure)
+    .closeSidebar();
+}
+function saveFailure(){
+  alert("unable to set the configuration");
+}
+
+
+</script>
+
+
+
+
+
+

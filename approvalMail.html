@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <?!= include('MailStylesheet'); ?>
+    
+  </head>
+  <body>
+    <div class="topnav">
+      <p style="font-family : verdana; font-size : 18px;color:black;">There is a request waiting for your approval with the following details.</p>
+      
+    </div>
+    <div id="main">
+    <table >
+     <thead>
+		<tr id="response-name" class="title" >
+			 <td colspan="2"><?=responseName ?></td>
+        </tr>
+     </thead>
+        <tbody id="tbody">
+        <? for (let i = 3; i < responses[0].length; i++) { ?>
+        <tr>
+            <td style="color:black;"> <?= questions[i] ?></td>
+            <td style="color:black;"> <?= responses[i] ?></td>
+          </tr>
+          <tr>
+            <td style="color:black;"> <?= questions[0][i] ?></td>
+            <td style="color:black;"> <?= responses[0][i] ?></td>
+          </tr>
+         <? } ?>
+          
+        </tbody>
+      </table>
+      <div style="margin-top:40px;">
+        <!--<div class="block" id="button-bar">
+          <a class="link" href="https://www.google.com" style="color:white;" id="approve"> Approve</a>
+          <a class="link" href="https://www.google.com" style="margin-left : 5px; background-color:red;color:white;" id="reject" > Reject</a>
+
+          </div>-->
+          <a href="https://script.google.com/macros/s/AKfycbyFHXTCmM6rHkW-6m242gu0ncFqp0KTNl9lyhwhd0seiDuMD1I/exec" class="link" style="color:white;margin-top:10px; width:360px;background-color:gray;">
+          Go to Google form workflow approval</a>
+      </div>
+    </div>
+     <div class="navbottom" id="myNavbar">
+       <h4 style="color : #dcdcdc;">Google form workflow approval <i>by Samrawit F.</i> </h4>
+        <a href="https://www.facebook.com/samrawit.fentaye.14/"> <img src="https://drive.google.com/uc?export=view&id=1MEE7nS1vv3Q-Pfx1DSXtDM4ZcM8kEFfc" 
+      alt="facebook" style="width : 5.6%; "/></a>
+      <a href="https://www.linkedin.com/in/samrawit-fentaye-122779154"><img src="https://drive.google.com/uc?export=view&id=1poUP4hhfOfOpuXbBqm9c54sn8q3qdPJ0" 
+      alt="linkedin" style="margin-top:8px;"/></a>
+      <a href="https://twitter.com/samrawi36140436"><img src="https://drive.google.com/uc?export=view&id=1OZsrUWU9RYtZEgWBwizA7TnnBaVD4JgP" 
+      alt="twitter" style="margin-top:12px; margin-left:6px;"/></a>
+      <a href="https://acre-software-company.business.site"><img src = "https://drive.google.com/uc?export=view&id=1IDXBH-KnAahMyY_OpI1d4BvBlNBKnyWA" 
+      alt="Acrem business company" class="navLogo" style="height : 20%; width : 16%; margin-top:10px;"/></a>
+    </div>
+    
+  </body>
+</html>
